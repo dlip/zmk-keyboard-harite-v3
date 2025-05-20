@@ -1,0 +1,7 @@
+# No whitespace after the comma or in your part name!
+config SHIELD_HARITE_V3_LEFT
+    def_bool $(shields_list_contains,harite_v3_left)
+
+# No whitespace after the comma or in your part name!
+config SHIELD_HARITE_V3_RIGHT
+    def_bool $(shields_list_contains,harite_v3_right)

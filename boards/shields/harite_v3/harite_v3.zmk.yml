@@ -1,0 +1,12 @@
+file_format: "1"
+id: harite_v3
+name: Harite v3
+type: shield
+url: https://github.com/harite-v3
+requires: [seeeduino_xiao_ble]
+exposes: []
+features:
+  - keys
+siblings:
+  - harite_v3_left
+  - harite_v3_right
