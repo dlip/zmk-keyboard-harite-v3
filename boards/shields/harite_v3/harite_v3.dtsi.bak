@@ -46,9 +46,11 @@
         compatible = "zmk,kscan-gpio-direct";
         wakeup-source;
         input-gpios
-            = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            = <&gpio0 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
             ;
     };
+
+
 
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";

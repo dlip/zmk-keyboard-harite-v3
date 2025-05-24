@@ -3,6 +3,7 @@
 #include <input/processors.dtsi>
 
 / {
+
     kscan0: kscan_matrix {
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
@@ -24,7 +25,6 @@
             , <&gpio1 7 GPIO_ACTIVE_HIGH>
             ;
     };
-
 
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
@@ -54,7 +54,6 @@
     chosen {
         zmk,physical-layout = &physical_layout0;
     };
-
 };
 
 &pinctrl {
@@ -71,7 +70,7 @@
     status = "okay";
     pinctrl-0 = <&spi0_default>;
     pinctrl-names = "default";
-    cs-gpios = <&xiao_d 7 19 GPIO_ACTIVE_LOW>;
+    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;
     glidepoint: glidepoint@0 {
         compatible = "cirque,pinnacle";
         reg = <0>;
@@ -87,11 +86,15 @@
 
 / {
     glidepoint_listener: glidepoint_listener {
-        compatible = "zmk,input-listener";
         status = "okay";
+        compatible = "zmk,input-listener";
+        device = <&glidepoint>;
     };
 };
 
-&qspi {
-	status = "disabled";
-};
+/* &uicr { */
+/*     nfct-pins-as-gpios; */
+/* }; */
+/* &qspi { */
+/* 	status = "disabled"; */
+/* }; */
