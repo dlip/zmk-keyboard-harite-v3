@@ -3,24 +3,7 @@
 #include <input/processors.dtsi>
 
 / {
-    kscan0: kscan_composite {
-        compatible = "zmk,kscan-composite";
-        rows = <5>;
-        columns = <6>;
-
-        // Include the matrix driver
-        matrix {
-            kscan = <&kscan1>;
-        };
-
-        // Include the direct GPIO driver...
-        direct {
-            kscan = <&kscan2>;
-            row-offset = <4>; // ...and shift it to not overlap
-        };
-    };
-
-    kscan1: kscan_matrix {
+    kscan0: kscan_matrix {
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
         wakeup-source;
@@ -42,13 +25,6 @@
             ;
     };
 
-    kscan2: kscan_direct {
-        compatible = "zmk,kscan-gpio-direct";
-        wakeup-source;
-        input-gpios
-            = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            ;
-    };
 
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
@@ -67,6 +43,7 @@
         RC(4,0)
         >;
     };
+
     physical_layout0: physical_layout_0 { // First physical layout, use different naming for other layouts
         compatible = "zmk,physical-layout";
         display-name = "Default Layout";
@@ -76,59 +53,45 @@
 
     chosen {
         zmk,physical-layout = &physical_layout0;
-        // Other chosen items
     };
-    
-	anin0: analog_input_0 {
-		compatible = "zmk,analog-input";
-		sampling-hz = <100>;
-		x-ch {
-			io-channels = <&adc 2>;
-			mv-mid = <1667>;
-			mv-min-max = <3738>; /* 30 - 3768 */
-			mv-deadzone = <300>;
-			scale-multiplier = <1>;
-			scale-divisor = <1000>;
-			invert;
-			evt-type = <INPUT_EV_REL>;
-			input-code = <INPUT_REL_X>;
-		};
-		y-ch {
-			io-channels = <&adc 3>;
-			mv-mid = <2055>;
-			mv-min-max = <3718>; /* 3758 - 40 */
-			mv-deadzone = <300>;
-			scale-multiplier = <1>;
-			scale-divisor = <1000>;
-			/* invert; */
-			evt-type = <INPUT_EV_REL>;
-			input-code = <INPUT_REL_Y>;
 
-			/* enable report mdoe for gamepad axix or knob */
-/* to only call input_report on quantquantized value is updated */
-	    /* report-on-change-only; */
-
-		};
-	};
-
-    /* analog_input_listener { */
-    /*     status = "okay"; */
-    /*     compatible = "zmk,input-listener"; */
-    /*     device = <&anin0>; */
-    /*     input-processors = <&zip_xy_to_scroll_mapper>; */
-    /* }; */
 };
 
-/* &uart0 { */
-/* 	status = "disabled"; */
-/* }; */
-
-&adc {
-	status = "okay";
+&pinctrl {
+    spi0_default: spi0_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
+                    <NRF_PSEL(SPIM_MOSI, 1, 15)>,
+                    <NRF_PSEL(SPIM_MISO, 1, 14)>;
+        };
+    };
 };
 
+&spi0 {
+    status = "okay";
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-names = "default";
+    cs-gpios = <&xiao_d 7 19 GPIO_ACTIVE_LOW>;
+    glidepoint: glidepoint@0 {
+        compatible = "cirque,pinnacle";
+        reg = <0>;
+        spi-max-frequency = <1000000>;
+        status = "okay";
+        dr-gpios = <&xiao_d 6 (GPIO_ACTIVE_HIGH)>;
 
-/* &qspi { */
-/* 	status = "disabled"; */
-/* }; */
+        /* sensitivity = "4x"; */
+        /* sleep; */
+        /* no-taps; */
+    };
+};
 
+/ {
+    glidepoint_listener: glidepoint_listener {
+        compatible = "zmk,input-listener";
+        status = "okay";
+    };
+};
+
+&qspi {
+	status = "disabled";
+};
