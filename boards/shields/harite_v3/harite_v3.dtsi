@@ -4,7 +4,24 @@
 
 / {
 
-    kscan0: kscan_matrix {
+    kscan0: kscan_composite {
+        compatible = "zmk,kscan-composite";
+        rows = <5>;
+        columns = <6>;
+
+        // Include the matrix driver
+        matrix {
+            kscan = <&kscan1>;
+        };
+
+        // Include the direct GPIO driver...
+        direct {
+            kscan = <&kscan2>;
+            row-offset = <4>; // ...and shift it to not overlap
+        };
+    };
+
+    kscan1: kscan_matrix {
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
         wakeup-source;
@@ -25,6 +42,16 @@
             , <&gpio1 7 GPIO_ACTIVE_HIGH>
             ;
     };
+
+    kscan2: kscan_direct {
+        compatible = "zmk,kscan-gpio-direct";
+        wakeup-source;
+        input-gpios
+            = <&gpio0 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            ;
+    };
+
+
 
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
@@ -64,23 +91,35 @@
                     <NRF_PSEL(SPIM_MISO, 1, 14)>;
         };
     };
+
+    spi0_sleep: spi0_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 13)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 15)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 14)>;
+            low-power-enable;
+        };
+    };
 };
+
 
 &spi0 {
     status = "okay";
+    compatible = "nordic,nrf-spim";
     pinctrl-0 = <&spi0_default>;
-    pinctrl-names = "default";
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
     cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;
     glidepoint: glidepoint@0 {
+        status = "okay";
         compatible = "cirque,pinnacle";
         reg = <0>;
         spi-max-frequency = <1000000>;
-        status = "okay";
         dr-gpios = <&xiao_d 6 (GPIO_ACTIVE_HIGH)>;
 
-        /* sensitivity = "4x"; */
-        /* sleep; */
-        /* no-taps; */
+        sensitivity = "4x";
+        sleep;
+        no-taps;
     };
 };
 
@@ -95,6 +134,6 @@
 /* &uicr { */
 /*     nfct-pins-as-gpios; */
 /* }; */
-/* &qspi { */
-/* 	status = "disabled"; */
-/* }; */
+&qspi {
+	status = "disabled";
+};
