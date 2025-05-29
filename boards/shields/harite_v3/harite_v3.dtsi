@@ -84,6 +84,7 @@
 };
 
 &pinctrl {
+    /* Cirque Trackpad */
     spi0_default: spi0_default {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
@@ -91,7 +92,6 @@
                     <NRF_PSEL(SPIM_MISO, 1, 14)>;
         };
     };
-
     spi0_sleep: spi0_sleep {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 0, 13)>,
@@ -100,22 +100,38 @@
             low-power-enable;
         };
     };
+    /* PMW3610 */
+    spi1_default: spi1_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
+                    <NRF_PSEL(SPIM_MOSI, 1, 14)>,
+                    <NRF_PSEL(SPIM_MISO, 1, 14)>;
+        };
+    };
+    spi1_sleep: spi1_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
+                    <NRF_PSEL(SPIM_MOSI, 1, 14)>,
+                    <NRF_PSEL(SPIM_MISO, 1, 14)>;
+            low-power-enable;
+        };
+    };
 };
 
-
+/* Cirque Trackpad */
 &spi0 {
-    status = "okay";
+    status = "disabled";
     compatible = "nordic,nrf-spim";
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
-    cs-gpios = <&xiao_d 7 GPIO_ACTIVE_LOW>;
+    cs-gpios = <&xiao_d 4 GPIO_ACTIVE_LOW>;
     glidepoint: glidepoint@0 {
-        status = "okay";
+        status = "disabled";
         compatible = "cirque,pinnacle";
         reg = <0>;
         spi-max-frequency = <1000000>;
-        dr-gpios = <&xiao_d 6 (GPIO_ACTIVE_HIGH)>;
+        dr-gpios = <&xiao_d 5 (GPIO_ACTIVE_HIGH)>;
 
         sensitivity = "4x";
         sleep;
@@ -123,11 +139,29 @@
     };
 };
 
-/ {
-    glidepoint_listener: glidepoint_listener {
-        status = "okay";
-        compatible = "zmk,input-listener";
-        device = <&glidepoint>;
+/* PMW3610 */
+&spi1 {
+    status = "disabled";
+    compatible = "nordic,nrf-spim";
+    pinctrl-0 = <&spi1_default>;
+    pinctrl-1 = <&spi1_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&xiao_d 4 GPIO_ACTIVE_LOW>;
+    trackball: trackball@0 {
+        status = "disabled";
+        compatible = "pixart,pmw3610";
+        reg = <0>;
+        spi-max-frequency = <2000000>;
+        irq-gpios = <&xiao_d 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        cpi = <800>;
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
+
+        force-awake;
+        /* keep the sensor awake while ZMK activity state is ACTIVE,
+           fallback to normal downshift mode after ZMK goes into IDLE / SLEEP mode.
+           thus, the sensor would be a `wakeup-source` */
     };
 };
 
