@@ -88,6 +88,9 @@
     };
 };
 
+
+&xiao_serial { status = "okay"; };
+
 &pinctrl {
     /* Cirque Trackpad */
     spi0_default: spi0_default {
