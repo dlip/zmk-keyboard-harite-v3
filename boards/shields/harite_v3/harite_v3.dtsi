@@ -82,6 +82,10 @@
         zmk,physical-layout = &physical_layout0;
     };
 
+    wired_split {
+        compatible = "zmk,wired-split";
+        device = <&xiao_serial>;
+    };
 };
 
 &pinctrl {
