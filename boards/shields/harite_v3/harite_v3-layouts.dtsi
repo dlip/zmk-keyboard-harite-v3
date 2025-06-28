@@ -1,0 +1,89 @@
+#include <physical_layouts.dtsi>
+#define KW 100
+#define KH 100
+
+#define C0 (KW * 0)
+#define C1 (KW * 1)
+#define C2 (KW * 2)
+#define C3 (KW * 3)
+#define C4 (KW * 4)
+#define C5 (KW * 5)
+#define C6 (KW * 6)
+#define C7 (KW * 7)
+#define C8 (KW * 8)
+#define C9 (KW * 9)
+#define C10 (KW * 10)
+#define C11 (KW * 11)
+#define C12 (KW * 12)
+#define C13 (KW * 13)
+#define C14 (KW * 14)
+#define C15 (KW * 15)
+#define C16 (KW * 16)
+#define C17 (KW * 17)
+#define C18 (KW * 18)
+#define C19 (KW * 19)
+#define C20 (KW * 20)
+#define C21 (KW * 21)
+#define C22 (KW * 22)
+#define C23 (KW * 23)
+
+#define R0 (KH * 0)
+#define R1 (KH * 1)
+#define R2 (KH * 2)
+#define R3 (KH * 3)
+#define R4 (KH * 4)
+#define R5 (KH * 5)
+#define R6 (KH * 6)
+#define R7 (KH * 7)
+#define R8 (KH * 8)
+
+/ {
+    harite_v3_layout: harite_v3_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "Harite v3";
+        transform = <&default_transform>;
+        kscan = <&kscan0>;
+        keys  //                     w   h    x    y     rot    rx    ry
+            = <&key_physical_attrs  KW  KH   C1   R0       0     0     0>
+            , <&key_physical_attrs  KW  KH   C4   R0       0     0     0>
+            , <&key_physical_attrs  KW  KH   C7   R0       0     0     0>
+            , <&key_physical_attrs  KW  KH  C10   R0       0     0     0>
+            , <&key_physical_attrs  KW  KH  C13   R0       0     0     0>
+            , <&key_physical_attrs  KW  KH  C16   R0       0     0     0>
+            , <&key_physical_attrs  KW  KH  C19   R0       0     0     0>
+            , <&key_physical_attrs  KW  KH  C22   R0       0     0     0>
+            , <&key_physical_attrs  KW  KH   C0   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH   C2   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH   C3   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH   C5   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH   C6   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH   C8   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH   C9   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH  C11   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH  C12   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH  C14   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH  C15   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH  C17   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH  C18   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH  C20   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH  C21   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH  C23   R1       0     0     0>
+            , <&key_physical_attrs  KW  KH   C1   R2       0     0     0>
+            , <&key_physical_attrs  KW  KH   C4   R2       0     0     0>
+            , <&key_physical_attrs  KW  KH   C7   R2       0     0     0>
+            , <&key_physical_attrs  KW  KH  C10   R2       0     0     0>
+            , <&key_physical_attrs  KW  KH  C13   R2       0     0     0>
+            , <&key_physical_attrs  KW  KH  C16   R2       0     0     0>
+            , <&key_physical_attrs  KW  KH  C19   R2       0     0     0>
+            , <&key_physical_attrs  KW  KH  C22   R2       0     0     0>
+            , <&key_physical_attrs  KW  KH  C10   R3       0     0     0>
+            , <&key_physical_attrs  KW  KH  C13   R3       0     0     0>
+            , <&key_physical_attrs  KW  KH  C9   R4       0     0     0>
+            , <&key_physical_attrs  KW  KH  C11   R4       0     0     0>
+            , <&key_physical_attrs  KW  KH  C12   R4       0     0     0>
+            , <&key_physical_attrs  KW  KH  C14   R4       0     0     0>
+            , <&key_physical_attrs  KW  KH  C10   R5       0     0     0>
+            , <&key_physical_attrs  KW  KH  C13   R5       0     0     0>
+            ;
+    };
+};
