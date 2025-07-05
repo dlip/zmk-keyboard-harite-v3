@@ -134,6 +134,8 @@
         reg = <0>;
         spi-max-frequency = <1000000>;
         dr-gpios = <&xiao_d 5 (GPIO_ACTIVE_HIGH)>;
+        y-invert;
+        rotate-90;
 
         sensitivity = "4x";
         sleep;
