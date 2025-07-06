@@ -38,6 +38,11 @@
 #define R7 (KH * 7)
 #define R8 (KH * 8)
 #define R9 (KH * 9)
+#define R10 (KH * 10)
+#define R11 (KH * 11)
+#define R12 (KH * 12)
+#define R13 (KH * 13)
+#define R14 (KH * 14)
 
 / {
     harite_v3_layout: harite_v3_layout {
@@ -86,6 +91,14 @@
             , <&key_physical_attrs  KW  KH  C15   R5       0     0     0>
             , <&key_physical_attrs  KW  KH  C10   R6       0     0     0>
             , <&key_physical_attrs  KW  KH  C14   R6       0     0     0>
+            , <&key_physical_attrs  KW  KH  C10   R7       0     0     0>
+            , <&key_physical_attrs  KW  KH  C14   R7       0     0     0>
+            , <&key_physical_attrs  KW  KH   C9   R8       0     0     0>
+            , <&key_physical_attrs  KW  KH  C11   R8       0     0     0>
+            , <&key_physical_attrs  KW  KH  C13   R8       0     0     0>
+            , <&key_physical_attrs  KW  KH  C15   R8       0     0     0>
+            , <&key_physical_attrs  KW  KH  C10   R9       0     0     0>
+            , <&key_physical_attrs  KW  KH  C14   R9       0     0     0>
             ;
     };
 };
