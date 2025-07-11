@@ -137,7 +137,8 @@
         y-invert;
         rotate-90;
 
-        sensitivity = "4x";
+        /* Setting a higher sensitivity causes issues on bluetooth */
+        sensitivity = "1x";
         no-taps;
     };
 };
