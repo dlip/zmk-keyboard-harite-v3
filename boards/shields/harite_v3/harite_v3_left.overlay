@@ -11,5 +11,7 @@
 
 &glidepoint_split_listener {
     status = "okay";
+    input-processors =
+        <&zip_xy_scaler 2 1>;
 };
 
