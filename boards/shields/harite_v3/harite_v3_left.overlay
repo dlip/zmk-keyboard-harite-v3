@@ -1,2 +1,15 @@
 #include "harite_v3.dtsi"
+#include <dt-bindings/zmk/input_transform.h>
+
+&glidepoint_listener {
+    status = "okay";
+    input-processors =
+        <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>
+        , <&zip_xy_scaler 1 10>
+        , <&zip_xy_to_scroll_mapper>;
+};
+
+&glidepoint_split_listener {
+    status = "okay";
+};
 
