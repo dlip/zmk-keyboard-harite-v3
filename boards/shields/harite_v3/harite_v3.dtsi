@@ -122,6 +122,7 @@
         /* Setting a higher sensitivity causes issues on bluetooth */
         sensitivity = "1x";
         no-taps;
+        no-secondary-tap;
     };
 };
 

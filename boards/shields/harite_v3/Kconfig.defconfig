@@ -1,4 +1,4 @@
-if SHIELD_HARITE_V3_LEFT
+if SHIELD_HARITE_V3_RIGHT
 
 # Name must be less than 16 characters long!
 config ZMK_KEYBOARD_NAME
